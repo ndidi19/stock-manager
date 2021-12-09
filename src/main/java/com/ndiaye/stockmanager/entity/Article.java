@@ -29,6 +29,12 @@ public class Article {
     public Article() {
     }
 
+    public Article(String description, BigDecimal unitPriceWithoutTax, BigDecimal vat) {
+        this.description = description;
+        this.unitPriceWithoutTax = unitPriceWithoutTax;
+        this.vat = vat;
+    }
+
     public Article(String code, String label, String description, BigDecimal unitPriceWithoutTax, BigDecimal vat) {
         this.code = code;
         this.label = label;

@@ -60,13 +60,13 @@ public class Category {
         this.articles = articles;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Category{" +
-//                "id=" + id +
-//                ", code='" + code + '\'' +
-//                ", label='" + label + '\'' +
-//                ", articles=" + articles +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", label='" + label + '\'' +
+                ", articles=" + articles +
+                '}';
+    }
 }

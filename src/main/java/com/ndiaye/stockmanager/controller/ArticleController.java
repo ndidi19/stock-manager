@@ -1,5 +1,6 @@
 package com.ndiaye.stockmanager.controller;
 
+import com.ndiaye.stockmanager.controller.dto.ArticleForm;
 import com.ndiaye.stockmanager.entity.Article;
 import com.ndiaye.stockmanager.service.IArticleService;
 import com.ndiaye.stockmanager.service.ICategoryService;
@@ -33,8 +34,8 @@ public class ArticleController {
 
     @GetMapping("/articles/new")
     public String createArticleForm(Model model) {
-        Article article = new Article();
-        model.addAttribute("article", article);
+        ArticleForm article = new ArticleForm();
+        model.addAttribute("articleForm", article);
 
         model.addAttribute("categories", categoryService.getAllCategories());
 
@@ -43,7 +44,7 @@ public class ArticleController {
     }
 
     @PostMapping("/articles")
-    public String createCategory(@ModelAttribute("articleForm") Article article) {
+    public String createArticle(@ModelAttribute("articleForm") ArticleForm article) {
         articleService.createArticle(article);
         return "redirect:/articles";
     }

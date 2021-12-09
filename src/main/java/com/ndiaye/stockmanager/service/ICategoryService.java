@@ -9,4 +9,6 @@ public interface ICategoryService {
     public List<Category> getAllCategories();
 
     public Category createCategory(Category category);
+
+    public Category getCategoryById(String categoryId);
 }

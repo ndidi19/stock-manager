@@ -28,4 +28,9 @@ public class CategoryServiceImpl implements ICategoryService {
         category.setCode(CAT_CODE_PREFIX + category.getLabel().trim().replaceAll(" ", "_").toUpperCase());
         return categoryRepository.save(category);
     }
+
+    @Override
+    public Category getCategoryById(String categoryId) {
+        return categoryRepository.getById(Long.parseLong(categoryId));
+    }
 }
