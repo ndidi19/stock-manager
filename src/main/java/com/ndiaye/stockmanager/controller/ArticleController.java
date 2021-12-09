@@ -40,7 +40,6 @@ public class ArticleController {
         model.addAttribute("categories", categoryService.getAllCategories());
 
         return "articles/create_article";
-
     }
 
     @PostMapping("/articles")

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -40,6 +41,18 @@ public class CategoryController {
     @PostMapping("/categories")
     public String createCategory(@ModelAttribute("category") Category category) {
         categoryService.createCategory(category);
+        return "redirect:/categories";
+    }
+
+    @GetMapping("/categories/edit/{id}")
+    public String editCategoryForm(@PathVariable Long id, Model model) {
+        model.addAttribute("category", categoryService.getCategoryById(id));
+        return "categories/edit_category";
+    }
+
+    @PostMapping("/categories/edit/{id}")
+    public String updateCategory(@PathVariable Long id, @ModelAttribute("category") Category category) {
+        categoryService.updateCategory(category);
         return "redirect:/categories";
     }
 }

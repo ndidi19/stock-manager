@@ -25,12 +25,26 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public Category createCategory(Category category) {
-        category.setCode(CAT_CODE_PREFIX + category.getLabel().trim().replaceAll(" ", "_").toUpperCase());
-        return categoryRepository.save(category);
+        return setCodeAndSave(category);
     }
 
     @Override
     public Category getCategoryById(String categoryId) {
         return categoryRepository.getById(Long.parseLong(categoryId));
+    }
+
+    @Override
+    public Category getCategoryById(Long categoryId) {
+        return categoryRepository.getById(categoryId);
+    }
+
+    @Override
+    public Category updateCategory(Category category) {
+        return setCodeAndSave(category);
+    }
+
+    private Category setCodeAndSave(Category category) {
+        category.setCode(CAT_CODE_PREFIX + category.getLabel().trim().replaceAll(" ", "_").toUpperCase());
+        return categoryRepository.save(category);
     }
 }

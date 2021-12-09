@@ -44,40 +44,24 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Categories</h1>
-
-                <div class="row">
-                    <div class="col-md-12 mb-4">
-                        <a class="btn btn-primary" th:href="@{/categories/new}">Create a new category</a>
-                    </div>
-                </div>
-
-                <p class="mb-4">List of all our categories</p>
+                <h1 class="h3 mb-2 text-gray-800">Create category</h1>
+                <p class="mb-4">A simple form to create a new category</p>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Categories</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">New category</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Label</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="category: ${ categories }">
-                                    <td th:text="${category.code}"></td>
-                                    <td th:text="${category.label}"></td>
-                                    <td><a class="btn btn-primary" th:href="@{/categories/edit/{id}(id=${category.id})}">Edit</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <form th:action="@{/categories/edit/{id}(id=${category.id})}" th:object="${category}" method="POST">
+                            <div class="form-group">
+                                <label>Category label</label>
+                                <input class="form-control" type="text" th:field="*{label}" />
+                            </div>
+                            <div class="box-footer">
+                                <button class="btn btn-primary" type="submit">Save</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 

@@ -11,4 +11,8 @@ public interface ICategoryService {
     public Category createCategory(Category category);
 
     public Category getCategoryById(String categoryId);
+
+    public Category getCategoryById(Long categoryId);
+
+    public Category updateCategory(Category category);
 }
