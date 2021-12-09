@@ -43,6 +43,11 @@ public class CategoryServiceImpl implements ICategoryService {
         return setCodeAndSave(category);
     }
 
+    @Override
+    public void deleteCategoryById(Long id) {
+        categoryRepository.deleteById(id);
+    }
+
     private Category setCodeAndSave(Category category) {
         category.setCode(CAT_CODE_PREFIX + category.getLabel().trim().replaceAll(" ", "_").toUpperCase());
         return categoryRepository.save(category);

@@ -15,4 +15,6 @@ public interface ICategoryService {
     public Category getCategoryById(Long categoryId);
 
     public Category updateCategory(Category category);
+
+    public void deleteCategoryById(Long id);
 }

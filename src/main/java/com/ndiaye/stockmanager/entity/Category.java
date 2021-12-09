@@ -1,9 +1,6 @@
 package com.ndiaye.stockmanager.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity(name="categories")
@@ -17,7 +14,7 @@ public class Category {
 
     private String label;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Article> articles;
 
     public Category() {

@@ -55,4 +55,10 @@ public class CategoryController {
         categoryService.updateCategory(category);
         return "redirect:/categories";
     }
+
+    @GetMapping("/categories/delete/{id}")
+    public String deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategoryById(id);
+        return "redirect:/categories";
+    }
 }
