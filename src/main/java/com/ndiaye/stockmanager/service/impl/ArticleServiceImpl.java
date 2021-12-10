@@ -1,6 +1,7 @@
 package com.ndiaye.stockmanager.service.impl;
 
 import com.ndiaye.stockmanager.controller.dto.ArticleForm;
+import com.ndiaye.stockmanager.controller.dto.UpdateArticleForm;
 import com.ndiaye.stockmanager.entity.Article;
 import com.ndiaye.stockmanager.entity.Category;
 import com.ndiaye.stockmanager.repository.IArticleRepository;
@@ -50,13 +51,41 @@ public class ArticleServiceImpl implements IArticleService {
         random.nextBytes(token);
         //Concat code prefix "ART_" with generated random value
         article.setCode(ART_CODE_PREFIX + new BigInteger(1, token).toString(16).toUpperCase());
-        //
+        BigDecimal unitPriceWithTax = calculatePriceWithTax(article);
+        article.setUnitPriceWithTax(unitPriceWithTax);
+        articleRepository.save(article);
+        return article;
+    }
+
+    @Override
+    public void deleteArticleById(Long id) {
+        articleRepository.deleteById(id);
+    }
+
+    @Override
+    public Article getArticleById(Long id) {
+        return articleRepository.getById(id);
+    }
+
+    @Override
+    public Article updateArticle(UpdateArticleForm updateArticleForm) {
+        log.debug(updateArticleForm.toString());
+        Article article = articleRepository.getById(updateArticleForm.getId());
+        article.setDescription(updateArticleForm.getDescription());
+        article.setUnitPriceWithTax(updateArticleForm.getUnitPriceWithoutTax());
+        article.setVat(updateArticleForm.getVat());
+        Category category = categoryService.getCategoryById(updateArticleForm.getCategoryId());
+        article.setCategory(category);
+        BigDecimal unitPriceWithTax = calculatePriceWithTax(article);
+        article.setUnitPriceWithTax(unitPriceWithTax);
+        return articleRepository.save(article);
+    }
+
+    private BigDecimal calculatePriceWithTax(Article article) {
         BigDecimal taxAmount = article.getUnitPriceWithoutTax()
                 .multiply(article.getVat())
                 .divide(BigDecimal.valueOf(100));
         BigDecimal unitPriceWithTax = article.getUnitPriceWithoutTax().add(taxAmount);
-        article.setUnitPriceWithTax(unitPriceWithTax);
-        articleRepository.save(article);
-        return article;
+        return unitPriceWithTax;
     }
 }
